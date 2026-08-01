@@ -861,3 +861,109 @@ avg(balance) as totalbalance
 from accounts
 group by accounttype
 having avg(balance) > 50000;    
+
+select * from loans;
+
+update loans
+set loanamount = 500000
+where loanid = 204;
+
+select loanID, CustomerID, LoanAmount,
+rank() over(order by LoanAmount DESC) as Rank_By_LoanAmount
+from Loans;
+
+select loanID, CustomerID, LoanAmount,
+dense_rank() over(order by LoanAmount DESC) as Rank_By_LoanAmount
+from Loans;
+
+select LoanID, CustomerID, LoanAmount,
+row_number() over(order by LoanAmount DESC) as Rank_By_LoanAmount
+from Loans;
+
+select * from loans;
+
+-- safe update
+update Loans
+set CustomerID = 102
+where LoanID in (203, 204, 205);
+
+select LoanID, CustomerID, LoanAmount,
+row_number() over(partition by CustomerID order by LoanAmount desc)
+from Loans;
+
+select LoanID, CustomerID, LoanAmount,
+sum(LoanAmount) over(order by LoanAmount desc) as RunningTotal
+FROM Loans;
+
+select LoanID, CustomerID, LoanAmount,
+sum(LoanAmount) over(partition by CustomerID order by LoanAmount desc) as RunningTotal
+from Loans;
+
+select LoanAmount,
+lag(LoanAmount) over(order by LoanAmount desc) as Previous_LoanAmount
+from Loans;
+
+select LoanAmount,
+lead(LoanAmount) over(order by LoanAmount desc) as Next_LoanAmount
+from Loans;
+
+select CustomerId, LoanAmount,
+sum(LoanAmount) over(partition by CustomerID order by LoanAmount desc) as Sum_Of_Customer_Loan
+from Loans;
+
+select * from accounts;
+
+select * from transactions;
+
+select a.accountid, a.accounttype, a.balance,
+t.transactionid, t.transactiondate, t.amount, t.transactiontype
+from accounts a
+inner join transactions t
+where a.accountid = t.accountid;
+
+
+
+select a.accountid, a.accounttype, a.balance,
+t.transactionid,
+t.transactiondate,
+t.amount,
+t.transactiontype
+from accounts a
+inner join transactions t
+on a.accountid = t.accountid;
+
+select a.accountid, a.accounttype, a.balance,
+t.transactionid,
+t.transactiontype,
+t.transactiondate,
+t.amount
+from accounts a
+left join transactions t
+on a.accountid = t.accountid;
+
+select a.accountid, a.accounttype, a.balance,
+t.transactionid,
+t.transactiontype,
+t.transactiondate,
+t.amount
+from accounts a
+inner join transactions t
+on a.accountid = t.accountid
+where t.transactiontype = "Deposit";
+
+select a.accountid, a.accounttype, a.balance,
+t.transactionid,
+t.transactiontype,
+t.transactiondate,
+t.amount
+from accounts a
+inner join transactions t
+on a.accountid = t.accountid
+where a.balance > 30000 order by balance desc;
+
+
+
+
+
+
+
