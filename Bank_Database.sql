@@ -1,6 +1,7 @@
 show databases;
 
 create database BankingDB;
+
 use BankingDB;
 
 create table Customers(
