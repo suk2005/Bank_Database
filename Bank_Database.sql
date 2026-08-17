@@ -25,7 +25,6 @@ TransactionID int,
 TransactionDate date,
 Amount decimal(10,2),
 TransactionType varchar(20));
-
 	
 CREATE TABLE Branches (
     BranchID INT,
