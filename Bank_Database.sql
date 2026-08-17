@@ -11,7 +11,6 @@ LastName varchar(20),
 Email varchar(50),
 Phone varchar(15),
 AccountCreationDate date);
-
 desc Customers;
 
 CREATE TABLE Accounts (
